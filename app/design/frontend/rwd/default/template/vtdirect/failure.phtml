@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Hello World</title>
+    <style type="text/css">
+        
+        .result_information{
+        	font-size: 15px;
+        }
+        .result_information h1{
+    		color: #f12345;
+    		font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <?php
+
+$data = $this->getRequest()->getParams();
+?>
+
+<div class="result_information">
+<h1>Failure</h1>
+Your transaction with order id <?=$data['order_id']?> is denied. Please try again or try another payment method.
+</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Hello World</title>
+    <style type="text/css">
+        
+        .result_information{
+        	font-size: 15px;
+        }
+        .result_information h1{
+    		color: #000;
+    		font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <?php
+
+$data = $this->getRequest()->getParams();
+$orderid = $data['order_id'];
+$message = urldecode($data['status']);
+$va_number = str_split($data['va_number'], 4);
+$expire = $data['expire'];
+$total = $data['total'];
+?>
+
+<div class="result_information">
+<center>    
+<h2>Virtual Account Number:</h2>
+<h1><?=$va_number[0]?> <?=$va_number[1]?> <?=$va_number[2]?> <?=$va_number[3]?></h1>
+<h1>Rp <?=$total?></h1>
+<h4>Valid until : </h4><h2><?=$expire?></h2> 
+</center>
+
+<h1>Informations:</h1>
+<ul style="list-style-type:disc">
+<li>Payment can be made through all ATMs that have logo: Prima/ATM Bersama/Alto.</li>
+<li>Please do payment soon, the Virtual Account Number will expire in 24 hours.</li>
+<li>Minimum transaction using Mandiri ATM is Rp 50.000.</li>
+<li>Order details will be sent via email.</li>
+</ul>
+<br/>
+<ul style="list-style-type:disc">
+<h2>How to pay via ATM BCA/ PRIMA network :</h2>
+<li>Enter your PIN.</li>
+<li>On the main menu, choose 'Other Transaction'.</li>
+<li>Choose 'Transfer'.</li>
+<li>Choose 'Other Bank Account'.</li>
+<li>Enter '013' for Bank Permata then press 'Correct'.</li>
+<li>Enter the amount to be paid, then choose 'Correct'. Note, if the amount entered is not the same as the invoiced amount, the transaction will be denied.</li>
+<li>Enter <?=$va_number[0]?> <?=$va_number[1]?> <?=$va_number[2]?> <?=$va_number[3]?> (the 16 digit account number) then press 'Correct'.</li>
+<li>Amount to be paid & account number will appear on the payment confirmation page. If the information is correct, press 'Correct'.</li>
+<li>Transaction Success.</li>
+</ul>
+<br/>
+<h2>How to pay via ATM Mandiri/ATM Bersama network :</h2>
+<ul style="list-style-type:disc">
+<li>Enter your PIN.</li>
+<li>On the main menu, choose 'Others'.</li>
+<li>Choose 'Transfer'.</li>
+<li>Choose 'Online Transfer'.</li>
+<li>Enter the number 013 <?=$va_number[0]?> <?=$va_number[1]?> <?=$va_number[2]?> <?=$va_number[3]?> (code 013 and 16 digit account number).</li>
+<li>The reference number can be left blank, and then choose 'Correct'.</li>
+<li>Enter the amount to be paid, then choose 'Correct'. Note, if the amount entered is not the same as the invoiced amount, the transaction will be denied.</li>
+<li>Amount to be paid & account number will appear on the payment confirmation page. If the information is right, press 'Correct'.</li>
+<li>Transaction Success.</li>
+</ul>
+<br/>
+<h2>How to pay via ATM Bank Permata :</h2>
+<ul style="list-style-type:disc">
+<li>Enter your PIN.</li>
+<li>On the main menu, choose 'Other Transaction'.</li>
+<li>Choose 'Payment'.</li>
+<li>Choose 'Other Payment'.</li>
+<li>Choose 'Virtual Account'.</li>
+<li>Please input the 16 digit Virtual Account Number <?=$va_number[0]?> <?=$va_number[1]?> <?=$va_number[2]?> <?=$va_number[3]?></li>
+<li>Amount to be paid & account number will appear on the payment confirmation page. If the information is correct, press 'Correct'.</li>
+<il>Choose your payment account and then press 'Correct'.</li>
+</ul>
+</div>
+</body>
+</html>

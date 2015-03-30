@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Veritrans_Mandiriclickpay>
+      <version>0.1.0</version>
+    </Veritrans_Mandiriclickpay>
+  </modules>
+
+  <global>
+    <helpers>
+      <mandiriclickpay>
+        <class>Veritrans_Mandiriclickpay_Helper</class>
+      </mandiriclickpay>
+    </helpers>
+    <blocks>
+      <mandiriclickpay>
+      <class>Veritrans_Mandiriclickpay_Block</class>
+      </mandiriclickpay>
+    </blocks>
+    <models>
+      <mandiriclickpay>
+        <class>Veritrans_Mandiriclickpay_Model</class>
+      </mandiriclickpay>  
+    </models>
+
+  </global>
+
+  <frontend>
+    <routers>
+      <mandiriclickpay>
+        <use>standard</use>
+          <args>
+            <module>Veritrans_Mandiriclickpay</module>
+            <frontName>mandiriclickpay</frontName>
+          </args>
+      </mandiriclickpay>
+    </routers>
+  </frontend>
+
+  <default>
+    <payment>
+      <mandiriclickpay>
+        <model>mandiriclickpay/standard</model>
+        <active>1</active>
+        <order_status>processing</order_status>
+        <title>Veritrans Payment Method</title>
+        <sort_order>2</sort_order>
+      </mandiriclickpay>
+    </payment>
+   </default> 
+  
+</config> 

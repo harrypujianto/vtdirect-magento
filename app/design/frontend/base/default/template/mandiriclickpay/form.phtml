@@ -1,0 +1,61 @@
+<?php
+/**
+ * Veritrans VT Web Model Standard
+ *
+ * @category   Mage
+ * @package    vtweb/form.phtml
+ * @author     cby
+ * this template is rendered when Veritrans payment method is chosen. This is description about Veritrans Payment Method
+ */
+?>
+<?php $_code=$this->getMethodCode();
+ ?>
+
+<ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
+    <ol>
+      <li>Activate your Mandiri Token</li>
+      <li>Insert Mandiri Token password</li>
+      <li>Click 3 when Mandiri Token displays APPLI.</li>
+      <li>Fill "Input 1": Last 10 digit of your Mandiri Debit card</li>
+      <li>Fill "Input 2": Transaction Value</li>
+      <li>Fill "Input 3": Request Number</li>
+      <li>Fill your Mandiri Token response into “Challenge Token”</li>
+    </ll>
+
+    <li>
+        <label for="<?php echo $_code ?>_card_number" class="required"><em>*</em><?php echo $this->__('Card Number') ?></label>
+        <div class="input-box">
+            <input type="text" id="<?php echo $_code ?>_card_number" name="payment[cc_number]" title="<?php echo $this->__('Card Number') ?>" class="input-text validate-cc-number validate-cc-type card-number validate-digits validate-length maximum-length-16 minimum-length-16" onchange="mandiri()" value="" autocomplete="off" />
+        </div>
+    </li>
+
+    <li>
+        <label for="<?php echo $_code ?>_input1" id="input1"><?php echo $this->__('Last 10 digits of your card-number') ?></label>
+        <div class="input-box">
+            <input type="text" id="<?php echo $_code ?>_input1" name="payment[input1]" title="<?php echo $this->__('input1') ?>" value="" readonly="readonly" />
+        </div>
+    </li>
+
+    <li>
+        <label for="<?php echo $_code ?>_total_amount" id="input2"><?php echo $this->__('Total Amount') ?></label>
+        <div class="input-box">
+            <input type="text" id="<?php echo $_code ?>_input2" name="payment[total_amount]" title="<?php echo $this->__('total_amount') ?>" value="" autocomplete="off" readonly="readonly" />
+        </div>
+    </li>
+
+    <li>
+        <label for="<?php echo $_code ?>_token" id="input3"><?php echo $this->__('Token request number') ?></label>
+        <div class="input-box">
+            <input type="text" id="<?php echo $_code ?>_input3" name="payment[input3]" title="<?php echo $this->__('input3') ?>" readonly="readonly" />
+        </div>
+    </li>
+
+    <li>
+        <label for="<?php echo $_code ?>_challenge_Token" class="required"><em>*</em><?php echo $this->__('Challenge Token') ?></label>
+        <div class="input-box">
+            <div class="v-fix">
+                <input type="password" title="<?php echo $this->__('Challenge Token') ?>" class="input-text required-entry validate-digits validate-length maximum-length-6 minimum-length-6" id="<?php echo $_code ?>_cc_cid" name="payment[challenge_token]" value="" />
+            </div>
+        </div>
+    </li>    
+</ul>

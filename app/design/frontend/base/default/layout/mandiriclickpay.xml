@@ -1,0 +1,12 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+  <mandiriclickpay_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="mandiriclickpay/index" name="mandiriclickpay_index" template="mandiriclickpay/index.phtml"/>   
+    </reference>   
+  </mandiriclickpay_index_index>   
+</layout>   
+	

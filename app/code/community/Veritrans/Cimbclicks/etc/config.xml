@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Veritrans_Cimbclicks>
+      <version>0.1.0</version>
+    </Veritrans_Cimbclicks>
+  </modules>
+
+  <global>
+    <helpers>
+      <cimbclicks>
+        <class>Veritrans_Cimbclicks_Helper</class>
+      </cimbclicks>
+    </helpers>
+  <blocks>
+    <cimbclicks>
+    <class>Veritrans_Cimbclicks_Block</class>
+    </cimbclicks>
+  </blocks>
+  <models>
+      <cimbclicks>
+        <class>Veritrans_Cimbclicks_Model</class>
+      </cimbclicks>  
+    </models>
+  </global>
+
+  <frontend>
+    <routers>
+      <cimbclicks>
+        <use>standard</use>
+          <args>
+            <module>Veritrans_Cimbclicks</module>
+            <frontName>cimbclicks</frontName>
+          </args>
+      </cimbclicks>
+    </routers>
+  </frontend>
+
+  <default>
+    <payment>
+      <cimbclicks>
+        <model>cimbclicks/standard</model>
+        <active>1</active>
+        <title>Veritrans Payment Method</title>
+        <sort_order>3</sort_order>
+      </cimbclicks>
+    </payment>
+   </default> 
+  
+</config> 

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Veritrans_Permatava>
+      <version>0.1.0</version>
+    </Veritrans_Permatava>
+  </modules>
+
+  <global>
+    <helpers>
+      <permatava>
+        <class>Veritrans_Permatava_Helper</class>
+      </permatava>
+    </helpers>
+  <blocks>
+    <permatava>
+    <class>Veritrans_Permatava_Block</class>
+    </permatava>
+  </blocks>
+  <models>
+    <permatava>
+    <class>Veritrans_Permatava_Model</class>
+    </permatava>  
+  </models>
+  </global>
+
+  <frontend>
+    <routers>
+      <permatava>
+        <use>standard</use>
+          <args>
+            <module>Veritrans_Permatava</module>
+            <frontName>permatava</frontName>
+          </args>
+      </permatava>
+    </routers>
+  </frontend>
+
+  <default>
+    <payment>
+      <permatava>
+        <model>permatava/standard</model>
+        <active>1</active>
+        <title>Veritrans Payment Method</title>
+        <sort_order>4</sort_order>
+      </permatava>
+    </payment>
+   </default> 
+
+</config> 

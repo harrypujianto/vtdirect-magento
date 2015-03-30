@@ -1,0 +1,69 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>   
+<layout version="0.1.0">   
+  <vtdirect_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template></template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="vtdirect/index" name="vtdirect_index" template="vtdirect/index.phtml"/>   
+    </reference>   
+  </vtdirect_index_index>   
+</layout>  -->  
+	
+<!-- <?xml version="0.1.0" encoding="UTF-8"?>
+<layout>
+ <default>
+ <remove name="header" />
+ </default>
+</layout> -->
+
+
+<layout version="0.1.0">
+      <vtdirect_payment_test>
+        <reference name="root">
+           <action method="setTemplate">
+                <template>page/2columns-right.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+          <block type="customer/form_register" name="customer_form_register" template="vtdirect/failure.phtml"/>
+      </reference>
+      </vtdirect_payment_test>
+
+      <vtdirect_payment_success>
+        <reference name="root">
+           <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+          <block type="customer/form_register" name="customer_form_register" template="vtdirect/success.phtml"/>
+      </reference>
+      </vtdirect_payment_success>
+
+      <vtdirect_payment_permatava>
+        <reference name="root">
+           <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+          <block type="customer/form_register" name="customer_form_register" template="vtdirect/permatava.phtml"/>
+      </reference>
+      </vtdirect_payment_permatava>
+
+</layout>
+ 
+<!-- <layout version="0.1.0">
+    <default>
+    <reference name="root">
+      <action method="setTemplate">
+               <template>page/1column.phtml</template>
+           </action>
+    </reference>
+        <reference name="content">
+           ... another sub block ...
+            <block type="page/html" name="vtdirect.test" template="vtdirect/index.phtml" />
+        </reference>
+    </default>
+</layout> -->
