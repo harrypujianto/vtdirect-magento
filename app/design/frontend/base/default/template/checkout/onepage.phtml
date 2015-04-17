@@ -48,8 +48,8 @@ error_log('grandtotal di luar js= '.$grandTotal);
 </div>
 <!--<script type="text/javascript" src="<?php //echo $this->getSkinUrl('js/jquery.min.js') ?>"></script>-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/no-conflict.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/no-conflict.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.js') ?>"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.css') ?>">
 
@@ -104,7 +104,7 @@ error_log('grandtotal di luar js= '.$grandTotal);
         var total = Math.round($("price").value);
         var grand_total =  (curr.toString() != 'IDR') ? Math.round(total) * <?php echo $curr_rate;?> : total;
         console.log(grand_total);
-//===============================================================================
+
             <?php if($mode == 'production')
             {?>
                 Veritrans.url = "https://api.veritrans.co.id/v2/token";
