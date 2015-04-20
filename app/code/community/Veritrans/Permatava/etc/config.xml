@@ -41,7 +41,7 @@
       <permatava>
         <model>permatava/standard</model>
         <active>1</active>
-        <title>Veritrans Payment Method</title>
+        <title>Bank transfer via permata VA</title>
         <sort_order>4</sort_order>
       </permatava>
     </payment>

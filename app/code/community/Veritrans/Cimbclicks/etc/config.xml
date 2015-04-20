@@ -41,7 +41,7 @@
       <cimbclicks>
         <model>cimbclicks/standard</model>
         <active>1</active>
-        <title>Veritrans Payment Method</title>
+        <title>Cimb Clicks</title>
         <sort_order>3</sort_order>
       </cimbclicks>
     </payment>

@@ -43,7 +43,7 @@
         <model>mandiriclickpay/standard</model>
         <active>1</active>
         <order_status>processing</order_status>
-        <title>Veritrans Payment Method</title>
+        <title>Mandiri Click Pay</title>
         <sort_order>2</sort_order>
       </mandiriclickpay>
     </payment>
