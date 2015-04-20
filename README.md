@@ -3,7 +3,9 @@
 This is veritrans Vt-Direct plugin/module/extension for magento.
 The information about Vt-Direct can be found here http://docs.veritrans.co.id/vtdirect/introduction.html
 
-Tested with maegnto 1.8 & 1.9 with base package & default themes
+Tested with:
+* Magento 1.8 Default themes & Onepage checkout
+* Magento 1.9 RWD themes & Onepage checkout
 
 Payment Channel developed: Credit card, Mandiri Clickpay, CImbClicks, Permata Virtual Account.
 
@@ -20,7 +22,3 @@ How to install:
 * enable 3Dsecure 
 * Set the order status into 'processing' for Credit Card & Mandiri clickpay, and Pending for CIMB Clicks
 * http://[your website]/vtdirect/payment/notification
-
-This plugin might have bug(s) which haven't been discovered yet.
-If you wish to use the other package and themes please move the layout and template folder into your desired package & themes
-
