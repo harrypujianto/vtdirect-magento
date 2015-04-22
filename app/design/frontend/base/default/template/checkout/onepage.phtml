@@ -31,8 +31,6 @@ $shipping = Mage::helper('checkout')->getQuote()->getShippingAddress()->getShipp
 $grandTotal=round($order['grand_total']);
 $grandTotal = ($current_currency != 'IDR') ? $grandTotal * $curr_rate : $grandTotal;
 
-/*$grandTotal = null;*/
-
 $mode = Mage::getStoreConfig('payment/vtdirect/environment'); //value = sandbox/production
 $curr_rate = Mage::getStoreConfig('payment/vtdirect/conversion_rate');
 $current_currency = Mage::app()->getStore()->getCurrentCurrencyCode();
@@ -50,8 +48,7 @@ error_log('grandtotal di luar js= '.$grandTotal);
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/no-conflict.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.js') ?>"></script>
-
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.css') ?>">
 
     <script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
