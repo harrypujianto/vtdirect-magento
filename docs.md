@@ -6,7 +6,7 @@ Dokumentasi teknikal untuk Module VT-Direct Magento
 * Menggunakan default themes
 * Diperlukan untuk merubah 2 File
 
-## File 1 - Payment.phtml (App/design/frontend/template/your_package/your_themes/template/checkout/onepage/payment.phtml)
+#### File 1 - Payment.phtml (App/design/frontend/template/your_package/your_themes/template/checkout/onepage/payment.phtml)
 Jika menggunakan Base package / RWD package step ini tidak pelu dilakukan, hanya perlu replace file
 
 (bagian 1)
@@ -20,7 +20,7 @@ New
 ```<button type="button" class="button" onclick="savePayment()"><span><span><?php echo $this->__('Continue') ?></span></span></button>```
 
 (end of bagian 1)
-## File 2 - onepage.phtml (App/design/frontend/template/base/default/template/checkout/onepage.phtml)
+#### File 2 - onepage.phtml (App/design/frontend/template/base/default/template/checkout/onepage.phtml)
 Jika menggunakan Base package / RWD package step ini tidak perlu dilakukan,hanya perlu replace file.
 
 Tambahkan code ini di awal code
@@ -208,14 +208,14 @@ Snippet code diatas digunakan untuk proses tokenisasi kartu kredit, dan populate
 (end of bagian 4)
 
 
-#Error-error yang mungkin terjadi
+####Error-error yang mungkin terjadi
 1. Jika payment.phtml tidak diubah menurut(bagian 1), maka akan terdapat error 411 (token id is missing, invalid or timed out).
 2. Jika code pada bagian 2 tidak diimplementasikan maka akan terdapat error:” Uncaught SyntaxError: Unexpected token :” pada console, jika di-inspect emelent di browser.
 3. Jika code pada bagian 3 tidak diimplementasikan maka akan terdapat error “Uncaught ReferenceError: Veritrans is not defined”  pada console, jika di-inspect emelent di browser
 4. Jika code pada bagian 4 tidak diimplementasikan maka akan terjadi error ketika klik tombol continue pada step 4 di onepageChekcout. pesan error yang terdapat di console log tampak seperti ini “Uncaught ReferenceError: savePayment is not defined”
 5. Jika payment method yang dipilih adalah mandiri clickpay, dan code pada bagian 4 tidak diimplementasikan, maka terdapat pesan error “Uncaught ReferenceError: mandiri is not defined” di console.
 
-# Model/type
+#### Model/type
 pada folder app/code/community/veritrans/vtdirect/model/type/onepage.php
 Jika menggunakan versi magento 1.8, silahkan rename file onepage 1.8.php menjadi onepage.php. Step ini tidak perlu dilakukan jika menggunakan versi 1.9
 
