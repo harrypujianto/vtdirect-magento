@@ -1,26 +1,31 @@
-Magento Vt-Direct 
+#Magento Vt-Direct 
 
 Dokumentasi teknikal untuk Module VT-Direct Magento
 
 * Payment module dibuat untuk onepage checkout (Versi 1.8 & 1.9)
 * Menggunakan default themes
-*Diperlukan untuk merubah 2 File
+* Diperlukan untuk merubah 2 File
 
-Payment.phtml (App/design/frontend/template/<package>/<themes>/template/checkout/onepage/payment.phtml). Jika menggunakan Base package / RWD package step ini tidak pelu dilakukan, hanya perlu replace file.
+## File 1 - Payment.phtml (App/design/frontend/template/your_package/your_themes/template/checkout/onepage/payment.phtml)
+Jika menggunakan Base package / RWD package step ini tidak pelu dilakukan, hanya perlu replace file
+
 (bagian 1)
+
 Old: (baris 50)
-<button type="button" class="button" onclick="payment.save()"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+```<button type="button" class="button" onclick="payment.save()"><span><span><?php echo $this->__('Continue') ?></span></span></button>```
 
 di gantikan dengan
+
 New		
-<button type="button" class="button" onclick="savePayment()"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+```<button type="button" class="button" onclick="savePayment()"><span><span><?php echo $this->__('Continue') ?></span></span></button>```
+
 (end of bagian 1)
-b. onepage.phtml
- 	(App/design/frontend/template/base/default/template/checkout/onepage.phtml).
+## File 2 - onepage.phtml (App/design/frontend/template/base/default/template/checkout/onepage.phtml)
 Jika menggunakan Base package / RWD package step ini tidak perlu dilakukan,hanya perlu replace file.
 
 Tambahkan code ini di awal code
 (bagian 2)
+```
 <?php
 $order=Mage::helper('checkout')->getQuote()->getData();
 $shipping = Mage::helper('checkout')->getQuote()->getShippingAddress()->getShipping_amount();
@@ -31,11 +36,14 @@ $curr_rate = Mage::getStoreConfig('payment/vtdirect/conversion_rate');
 $current_currency = Mage::app()->getStore()->getCurrentCurrencyCode();
 $shipping = ($current_currency != 'IDR') ? round($shipping) * $curr_rate : $shipping;
 ?>
+```
 Code diatas digunakan untuk populate data-data yang diperlukan untuk tokenisasi kartu kredit.
+
 (end of bagian 2)
 
 
 (bagian 3)
+```
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/no-conflict.js') ?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.css') ?>">
@@ -44,11 +52,16 @@ Code diatas digunakan untuk populate data-data yang diperlukan untuk tokenisasi 
 <?php } else { ?>
     <script type="text/javascript" src="https://api.sandbox.veritrans.co.id/v2/assets/js/veritrans.min.js"></script>
 <?php } ?>
+```
+
 Code diatas digunakan untuk menabhankan script fancybox yang akan digunakan untuk halaman 3ds, dan juga script untuk tokenisasi.
+
 (end of bagian 3)
 
 Tambahkan code ini di akhir baris code
+
 (bagian 4)
+```
 <script type="text/javascript">
 
     function savePayment()
@@ -188,20 +201,21 @@ Tambahkan code ini di akhir baris code
      
     }    
 </script>
+```
 
 Snippet code diatas digunakan untuk proses tokenisasi kartu kredit, dan populate data untuk mandiri clickpay
+
 (end of bagian 4)
 
 
+#Error-error yang mungkin terjadi
+1. Jika payment.phtml tidak diubah menurut(bagian 1), maka akan terdapat error 411 (token id is missing, invalid or timed out).
+2. Jika code pada bagian 2 tidak diimplementasikan maka akan terdapat error:” Uncaught SyntaxError: Unexpected token :” pada console, jika di-inspect emelent di browser.
+3. Jika code pada bagian 3 tidak diimplementasikan maka akan terdapat error “Uncaught ReferenceError: Veritrans is not defined”  pada console, jika di-inspect emelent di browser
+4. Jika code pada bagian 4 tidak diimplementasikan maka akan terjadi error ketika klik tombol continue pada step 4 di onepageChekcout. pesan error yang terdapat di console log tampak seperti ini “Uncaught ReferenceError: savePayment is not defined”
+5. Jika payment method yang dipilih adalah mandiri clickpay, dan code pada bagian 4 tidak diimplementasikan, maka terdapat pesan error “Uncaught ReferenceError: mandiri is not defined” di console.
 
-4. Error-error yang mungkin terjadi
-Jika payment.phtml tidak diubah menurut(bagian 1), maka akan terdapat error 411 (token id is missing, invalid or timed out).
-Jika code pada bagian 2 tidak diimplementasikan maka akan terdapat error:” Uncaught SyntaxError: Unexpected token :” pada console, jika di-inspect emelent di browser.
-Jika code pada bagian 3 tidak diimplementasikan maka akan terdapat error “Uncaught ReferenceError: Veritrans is not defined”  pada console, jika di-inspect emelent di browser
-Jika code pada bagian 4 tidak diimplementasikan maka akan terjadi error ketika klik tombol continue pada step 4 di onepageChekcout. pesan error yang terdapat di console log tampak seperti ini “Uncaught ReferenceError: savePayment is not defined”
-Jika payment method yang dipilih adalah mandiri clickpay, dan code pada bagian 4 tidak diimplementasikan, maka terdapat pesan error “Uncaught ReferenceError: mandiri is not defined” di console.
-
-5. Model
+# Model/type
 pada folder app/code/community/veritrans/vtdirect/model/type/onepage.php
 Jika menggunakan versi magento 1.8, silahkan rename file onepage 1.8.php menjadi onepage.php. Step ini tidak perlu dilakukan jika menggunakan versi 1.9
 
