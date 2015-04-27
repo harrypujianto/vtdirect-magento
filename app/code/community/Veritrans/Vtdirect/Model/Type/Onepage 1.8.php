@@ -29,7 +29,7 @@
  */
 class Veritrans_Vtdirect_Model_Type_Onepage
 {
-       /**
+    /**
      * Checkout types: Checkout as Guest, Register, Logged In Customer
      */
     const METHOD_GUEST    = 'guest';
@@ -398,12 +398,12 @@ class Veritrans_Vtdirect_Model_Type_Onepage
         if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
             // set customer password
             $customer->setPassword($customerRequest->getParam('customer_password'));
-            $customer->setPasswordConfirmation($customerRequest->getParam('confirm_password'));
+            $customer->setConfirmation($customerRequest->getParam('confirm_password'));
         } else {
             // spoof customer password for guest
             $password = $customer->generatePassword();
             $customer->setPassword($password);
-            $customer->setPasswordConfirmation($password);
+            $customer->setConfirmation($password);
             // set NOT LOGGED IN group id explicitly,
             // otherwise copyFieldset('customer_account', 'to_quote') will fill it with default group id value
             $customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
@@ -628,6 +628,7 @@ class Veritrans_Vtdirect_Model_Type_Onepage
             | Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL;
 
         $payment = $quote->getPayment();
+        $payment->setPromoCode($data['promo']);
         $payment->importData($data);
 
         $quote->save();
@@ -698,6 +699,7 @@ class Veritrans_Vtdirect_Model_Type_Onepage
 
         Mage::helper('core')->copyFieldset('checkout_onepage_quote', 'to_customer', $quote, $customer);
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
+        $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
         $quote->setCustomer($customer)
             ->setCustomerId(true);
     }
@@ -797,6 +799,8 @@ class Veritrans_Vtdirect_Model_Type_Onepage
 
         $order = $service->getOrder();
         if ($order) {
+            $order->getPayment()->setPromoCode($this->getQuote()->getPayment()->getPromoCode());
+            $order->getPayment()->save();
             Mage::dispatchEvent('checkout_type_onepage_save_order_after',
                 array('order'=>$order, 'quote'=>$this->getQuote()));
 
@@ -810,7 +814,7 @@ class Veritrans_Vtdirect_Model_Type_Onepage
              */
             if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
                 try {
-                    $order->queueNewOrderEmail();
+                    $order->sendNewOrderEmail();
                 } catch (Exception $e) {
                     Mage::logException($e);
                 }
