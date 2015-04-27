@@ -2,9 +2,10 @@ Magento Vt-Direct
 
 Dokumentasi teknikal untuk Module VT-Direct Magento
 
-Payment module dibuat untuk onepage checkout (Versi 1.8 & 1.9)
-Menggunakan default themes
-Diperlukan untuk merubah 2 File
+* Payment module dibuat untuk onepage checkout (Versi 1.8 & 1.9)
+* Menggunakan default themes
+*Diperlukan untuk merubah 2 File
+
 Payment.phtml (App/design/frontend/template/<package>/<themes>/template/checkout/onepage/payment.phtml). Jika menggunakan Base package / RWD package step ini tidak pelu dilakukan, hanya perlu replace file.
 (bagian 1)
 Old: (baris 50)
