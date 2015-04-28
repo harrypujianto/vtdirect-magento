@@ -27,20 +27,12 @@
 <?php
 $order=Mage::helper('checkout')->getQuote()->getData();
 $shipping = Mage::helper('checkout')->getQuote()->getShippingAddress()->getShipping_amount();
-
 $grandTotal=round($order['grand_total']);
 $grandTotal = ($current_currency != 'IDR') ? $grandTotal * $curr_rate : $grandTotal;
-
-/*$grandTotal = null;*/
-
 $mode = Mage::getStoreConfig('payment/vtdirect/environment'); //value = sandbox/production
 $curr_rate = Mage::getStoreConfig('payment/vtdirect/conversion_rate');
 $current_currency = Mage::app()->getStore()->getCurrentCurrencyCode();
-
 $shipping = ($current_currency != 'IDR') ? round($shipping) * $curr_rate : $shipping;
-
-error_log('shipping = '.$shipping);
-error_log('grandtotal di luar js= '.$grandTotal);
 ?>
 <div class="page-title">
     <h1><?php echo $this->__('Checkout') ?></h1>
@@ -48,6 +40,7 @@ error_log('grandtotal di luar js= '.$grandTotal);
 <script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout_rwd.js') ?>"></script>
+
 
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/no-conflict.js') ?>"></script>
@@ -59,8 +52,6 @@ error_log('grandtotal di luar js= '.$grandTotal);
 <?php } else { ?>
     <script type="text/javascript" src="https://api.sandbox.veritrans.co.id/v2/assets/js/veritrans.min.js"></script>
 <?php } ?>
-
-
 
 
 <ol class="opc opc-firststep-<?php echo $this->getActiveStep() ?>" id="checkoutSteps">
@@ -93,28 +84,16 @@ error_log('grandtotal di luar js= '.$grandTotal);
 //]]>
 </script>
 <script type="text/javascript">
-//jQuery(document).ready(function () {});
 
     function savePayment()
     { 
-        
         var curr =  "<?php echo $current_currency;?>" ; 
         var total = Math.round($("price").value);
         var grand_total =  (curr.toString() != 'IDR') ? Math.round(total) * <?php echo $curr_rate;?> : total;
         console.log(grand_total);
-
-            <?php if($mode == 'production')
-            {?>
-                Veritrans.url = "https://api.veritrans.co.id/v2/token";
-            <?php
-            }
-            else
-            {
-            ?>
-                Veritrans.url = "https://api.sandbox.veritrans.co.id/v2/token";
-            <?php
-            }
-            ?>
+        var mode = "<?php echo $mode;?>";
+        Veritrans.url =  (mode == 'production') ? "https://api.veritrans.co.id/v2/token" : "https://api.sandbox.veritrans.co.id/v2/token";
+        console.log('veritrans.url = '+Veritrans.url);
             
             Veritrans.client_key = "<?php echo Mage::getStoreConfig('payment/vtdirect/clientkey');?>"; //add client-key from veritrans
             var secure = false;
@@ -211,8 +190,7 @@ error_log('grandtotal di luar js= '.$grandTotal);
 
     
     function mandiri()
-    {
-       // console.log('hahahahha');   
+    {       
         var curr =  "<?php echo $current_currency;?>" ; 
         var total = Math.round($("price").value);
         var grand_total =  (curr.toString() != 'IDR') ? Math.round(total) * <?php echo $curr_rate;?> : total;
@@ -222,27 +200,24 @@ error_log('grandtotal di luar js= '.$grandTotal);
         document.getElementById("mandiriclickpay_input1").value = updateInput1();
 
 
-          function updateInput1(){
+        function updateInput1(){
             var ccNumber = document.getElementById('mandiriclickpay_card_number').value;
             if(ccNumber.length > 9) {
                var cut = ccNumber.substring(ccNumber.length, ccNumber.length-10);
             }
             return cut;
-
-          }
-
-
+        }
 
         function paddy(n, p, c) {
             var pad_char = typeof c !== 'undefined' ? c : '0';
             var pad = new Array(1 + p).join(pad_char);
             return (pad + n).slice(-pad.length);
-          }
+        }
 
-          function random5digit(){
+        function random5digit(){
             return paddy(Math.floor(Math.random() * 99999), 5); 
-          }
+        }
      
-    }    
+    }
+   
 </script>
-

@@ -27,28 +27,22 @@
 <?php
 $order=Mage::helper('checkout')->getQuote()->getData();
 $shipping = Mage::helper('checkout')->getQuote()->getShippingAddress()->getShipping_amount();
-
 $grandTotal=round($order['grand_total']);
 $grandTotal = ($current_currency != 'IDR') ? $grandTotal * $curr_rate : $grandTotal;
-
 $mode = Mage::getStoreConfig('payment/vtdirect/environment'); //value = sandbox/production
 $curr_rate = Mage::getStoreConfig('payment/vtdirect/conversion_rate');
 $current_currency = Mage::app()->getStore()->getCurrentCurrencyCode();
-
 $shipping = ($current_currency != 'IDR') ? round($shipping) * $curr_rate : $shipping;
-
-error_log('shipping = '.$shipping);
-error_log('grandtotal di luar js= '.$grandTotal);
-
 ?> 
 <div class="page-title">
     <h1><?php echo $this->__('Checkout') ?></h1>
 </div>
 <!--<script type="text/javascript" src="<?php //echo $this->getSkinUrl('js/jquery.min.js') ?>"></script>-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/no-conflict.js') ?>"></script>
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.js') ?>"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.css') ?>">
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/no-conflict.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.js') ?>"></script>
+
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('js/fancybox/jquery.fancybox.css') ?>">
 
     <script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
@@ -58,8 +52,6 @@ error_log('grandtotal di luar js= '.$grandTotal);
 <?php } else { ?>
     <script type="text/javascript" src="https://api.sandbox.veritrans.co.id/v2/assets/js/veritrans.min.js"></script>
 <?php } ?>
-
-
 
 <ol class="opc" id="checkoutSteps">
 
@@ -95,31 +87,17 @@ error_log('grandtotal di luar js= '.$grandTotal);
 <script type="text/javascript">
 
     function savePayment()
-    { 
-        
+    {         
         var curr =  "<?php echo $current_currency;?>" ; 
         var total = Math.round($("price").value);
         var grand_total =  (curr.toString() != 'IDR') ? Math.round(total) * <?php echo $curr_rate;?> : total;
         console.log(grand_total);
-
-            <?php if($mode == 'production')
-            {?>
-                Veritrans.url = "https://api.veritrans.co.id/v2/token";
-            <?php
-            }
-            else
-            {
-            ?>
-                Veritrans.url = "https://api.sandbox.veritrans.co.id/v2/token";
-            <?php
-            }
-            ?>
-            
-            Veritrans.client_key = "<?php echo Mage::getStoreConfig('payment/vtdirect/clientkey');?>"; //add client-key from veritrans
-            var secure = false;
-            if("<?php echo Mage::getStoreConfig('payment/vtdirect/enable_3d_secure'); ?>" == '1') {
-                secure = true;
-            }
+        var mode = "<?php echo $mode;?>";
+        Veritrans.url =  (mode == 'production') ? "https://api.veritrans.co.id/v2/token" : "https://api.sandbox.veritrans.co.id/v2/token";
+        console.log('veritrans.url = '+Veritrans.url);
+        Veritrans.client_key = "<?php echo Mage::getStoreConfig('payment/vtdirect/clientkey');?>"; //add client-key from veritrans
+        var secure_config = "<?php echo Mage::getStoreConfig('payment/vtdirect/enable_3d_secure'); ?>";
+        var secure = (secure_config == 1) ? true : false;
 
             function card(){
                 return {
@@ -230,8 +208,6 @@ error_log('grandtotal di luar js= '.$grandTotal);
 
           }
 
-
-
         function paddy(n, p, c) {
             var pad_char = typeof c !== 'undefined' ? c : '0';
             var pad = new Array(1 + p).join(pad_char);
@@ -240,38 +216,8 @@ error_log('grandtotal di luar js= '.$grandTotal);
 
           function random5digit(){
             return paddy(Math.floor(Math.random() * 99999), 5); 
-          }
-        /*updateInput1();
-
-          $('#mandiriclickpay_card_number').keyup(function(){
-            updateInput1();
-          });
-
-          $('#mandiriclickpay_input3').val(random5digit());
-          $('#mandiriclickpay_input2').value = grand_total;
-          alert($('#mandiriclickpay_input2').value);
-
-          function updateInput1(){
-            var ccNumber = $('#mandiriclickpay_card_number').val();
-            if(ccNumber.length > 9) {
-              $('#mandiriclickpay_input1').val(ccNumber.substring(ccNumber.length, ccNumber.length-10));
-            }
-          }
-
-          function paddy(n, p, c) {
-            var pad_char = typeof c !== 'undefined' ? c : '0';
-            var pad = new Array(1 + p).join(pad_char);
-            return (pad + n).slice(-pad.length);
-          }
-
-          function random5digit(){
-            return paddy(Math.floor(Math.random() * 99999), 5); 
-          }
-     */     
+          }     
     }
-
-
-    
 </script>
 
 
